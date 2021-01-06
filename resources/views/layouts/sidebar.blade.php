@@ -10,7 +10,7 @@
             <li class="menu-title">Main</li>
 
             <li>
-                <a href="index" class="waves-effect">
+                <a href="dashboard" class="waves-effect">
                     <i class="ti-home"></i><span class="badge badge-pill badge-primary float-right">2</span>
                     <span>Dashboard</span>
                 </a>
