@@ -1,4 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.master-without-nav')
+
+@section('title')
+Reset Password
+@endsection
+
+@section('body')
+<body>
+@endsection
 
 @section('content')
 <div class="container">
