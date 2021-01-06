@@ -13,4 +13,8 @@ class Teacher extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'teacher_id', 'id');
+    }
 }

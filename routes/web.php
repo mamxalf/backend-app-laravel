@@ -24,3 +24,4 @@ Route::resource('classrooms', 'ClassroomController');
 Route::resource('rooms', 'RoomController');
 Route::resource('teachers', 'TeacherController');
 Route::resource('students', 'StudentController');
+Route::resource('courses', 'CourseController');
