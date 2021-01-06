@@ -18,7 +18,7 @@ class CreateSchedulesTable extends Migration
             $table->bigInteger('courses_id')->unsigned();
             $table->bigInteger('classroom_id')->unsigned();
             $table->bigInteger('room_id')->unsigned();
-            $table->enum('day', ["senin", "selasa", "rabu", "kamis", "jum'at", "sabtu"]);
+            $table->enum('day', ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'])->default('senin');
             $table->time('schedule_start');
             $table->time('schedule_finish');
             $table->timestamps();
