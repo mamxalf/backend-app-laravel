@@ -22,3 +22,5 @@ Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
 Route::resource('classrooms', 'ClassroomController');
 Route::resource('rooms', 'RoomController');
+Route::resource('teachers', 'TeacherController');
+Route::resource('students', 'StudentController');

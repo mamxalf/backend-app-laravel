@@ -31,15 +31,17 @@
             </li>
 
             <li>
-                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                    <i class="ti-email"></i>
-                    <span>Email</span>
+                <a href="{{ route('teachers.index') }}" class="waves-effect">
+                    <i class="mdi mdi-account-box-outline"></i>
+                    <span>Teacher</span>
                 </a>
-                <ul class="sub-menu" aria-expanded="false">
-                    <li><a href="email-inbox">Inbox</a></li>
-                    <li><a href="email-read">Email Read</a></li>
-                    <li><a href="email-compose">Email Compose</a></li>
-                </ul>
+            </li>
+
+            <li>
+                <a href="{{ route('students.index') }}" class="waves-effect">
+                    <i class="mdi mdi-account-box-multiple-outline"></i>
+                    <span>Student</span>
+                </a>
             </li>
 
             <li class="menu-title">Components</li>
