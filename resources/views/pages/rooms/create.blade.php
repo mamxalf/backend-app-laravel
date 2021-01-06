@@ -6,11 +6,11 @@
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="page-title-box">
-                <h4 class="font-size-18">Form Add Classroom</h4>
+                <h4 class="font-size-18">Form Add Room</h4>
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Veltrix</a></li>
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
-                    <li class="breadcrumb-item active">Update Classroom</li>
+                    <li class="breadcrumb-item active">Add New Room</li>
                 </ol>
             </div>
         </div>
@@ -39,18 +39,17 @@
         <div class="col-6 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('classrooms.update', [$classroom->id]) }}" method="post">
+                    <form action="{{ route('rooms.store') }}" method="post">
                         @csrf
-                        @method('put')
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-3 col-form-label">Classroom Name</label>
+                            <label for="example-text-input" class="col-sm-3 col-form-label">Room Code</label>
                             <div class="col-sm-9">
-                                <input class="form-control" type="text" name="classroom" placeholder="Input Classroom Name"
-                                    id="example-text-input" value="{{ $classroom->name }}">
+                                <input class="form-control" type="text" name="room" placeholder="Input Room Code"
+                                    id="example-text-input">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary waves-effect waves-light float-right"><i
-                                class="mdi mdi-file-document-box-plus mr-2"></i>Update</button>
+                                class="mdi mdi-file-document-box-plus mr-2"></i>Add</button>
                     </form>
                 </div>
             </div>

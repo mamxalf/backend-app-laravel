@@ -8,13 +8,27 @@ use Illuminate\Http\Request;
 class RoomController extends Controller
 {
     /**
+     * Construct.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $rooms = Room::all();
+
+        return view('pages.rooms.index')->with([
+            'rooms' => $rooms
+        ]);
     }
 
     /**
@@ -24,7 +38,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.rooms.create');
     }
 
     /**
@@ -35,7 +49,12 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $room = new Room;
+        $room->room_code = $request->get('room');
+        $room->save();
+
+        $request->session()->flash('status', 'New Room has been added !');
+        return redirect('/rooms');
     }
 
     /**
@@ -55,9 +74,13 @@ class RoomController extends Controller
      * @param  \App\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function edit(Room $room)
+    public function edit($room)
     {
-        //
+        $data = Room::findOrFail($room);
+
+        return view('pages.rooms.edit')->with([
+            'room' => $data
+        ]);
     }
 
     /**
@@ -67,9 +90,14 @@ class RoomController extends Controller
      * @param  \App\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Room $room)
+    public function update(Request $request, $room)
     {
-        //
+        $data = Room::findOrFail($room);
+        $data->room_code = $request->get('room');
+        $data->save();
+
+        $request->session()->flash('status', 'Room has been updated !');
+        return redirect('/rooms');
     }
 
     /**
@@ -78,8 +106,12 @@ class RoomController extends Controller
      * @param  \App\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Room $room)
+    public function destroy(Request $request, $room)
     {
-        //
+        $data = Room::findOrFail($room);
+        $data->delete();
+
+        $request->session()->flash('statusDelete', 'Room has been deleted !');
+        return redirect('/rooms');
     }
 }
