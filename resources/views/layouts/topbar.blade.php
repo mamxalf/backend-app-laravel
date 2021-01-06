@@ -3,21 +3,21 @@
                     <div class="d-flex">
                         <!-- LOGO -->
                         <div class="navbar-brand-box">
-                            <a href="index" class="logo logo-dark">
+                            <a href="{{ route('dashboard') }}" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="assets/images/logo.svg" alt="" height="22">
+                                    <img src="{{ asset('assets/images/logo.svg') }}" alt="" height="22">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="assets/images/logo-dark.png" alt="" height="17">
+                                    <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" height="17">
                                 </span>
                             </a>
 
-                            <a href="index" class="logo logo-light">
+                            <a href="{{ route('dashboard') }}" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="assets/images/logo-sm.png" alt="" height="22">
+                                    <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="assets/images/logo-light.png" alt="" height="18">
+                                    <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="18">
                                 </span>
                             </a>
                         </div>
@@ -59,7 +59,7 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
                                 aria-labelledby="page-header-search-dropdown">
-                    
+
                                 <form class="p-3">
                                     <div class="form-group m-0">
                                         <div class="input-group">
@@ -79,7 +79,7 @@
                                 <img class="mr-2" src="assets/images/flags/us_flag.jpg" alt="Header Language" height="16"> English <span class="mdi mdi-chevron-down"></span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                    
+
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                                     <img src="assets/images/flags/germany_flag.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle"> German </span>
@@ -144,7 +144,7 @@
                                             </div>
                                         </div>
                                     </a>
-                        
+
                                     <a href="" class="text-reset notification-item">
                                         <div class="media">
                                             <div class="avatar-xs mr-3">
@@ -245,7 +245,7 @@
                                 <i class="mdi mdi-settings-outline"></i>
                             </button>
                         </div>
-            
+
                     </div>
                 </div>
             </header>

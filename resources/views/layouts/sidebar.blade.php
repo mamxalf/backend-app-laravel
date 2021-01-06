@@ -7,19 +7,26 @@
     <div id="sidebar-menu">
         <!-- Left Menu Start -->
         <ul class="metismenu list-unstyled" id="side-menu">
-            <li class="menu-title">Main</li>
+            {{-- <li class="menu-title"></li> --}}
 
             <li>
-                <a href="dashboard" class="waves-effect">
-                    <i class="ti-home"></i><span class="badge badge-pill badge-primary float-right">2</span>
+                <a href="{{ route('dashboard') }}" class="waves-effect">
+                    <i class="ti-home"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
             <li>
-                <a href="calendar" class=" waves-effect">
-                    <i class="ti-calendar"></i>
-                    <span>Calendar</span>
+                <a href="{{ route('classrooms.index') }}" class="waves-effect">
+                    <i class="ti-layout-grid3"></i>
+                    <span>Classrooms</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('rooms.index') }}" class="waves-effect">
+                    <i class="ti-layout-placeholder"></i>
+                    <span>Room</span>
                 </a>
             </li>
 
