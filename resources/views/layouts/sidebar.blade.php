@@ -18,7 +18,7 @@
 
             <li>
                 <a href="{{ route('classrooms.index') }}" class="waves-effect">
-                    <i class="ti-layout-grid3"></i>
+                    <i class="ti-layout-grid2"></i>
                     <span>Classrooms</span>
                 </a>
             </li>
@@ -34,6 +34,13 @@
                 <a href="{{ route('courses.index') }}" class="waves-effect">
                     <i class="ti-clipboard"></i>
                     <span>Courses</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('schedules.index') }}" class="waves-effect">
+                    <i class="ti-calendar"></i>
+                    <span>Schedules</span>
                 </a>
             </li>
 

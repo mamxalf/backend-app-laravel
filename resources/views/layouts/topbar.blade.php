@@ -76,33 +76,33 @@
                         <div class="dropdown d-none d-md-block ml-2">
                             <button type="button" class="btn header-item waves-effect"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="mr-2" src="assets/images/flags/us_flag.jpg" alt="Header Language" height="16"> English <span class="mdi mdi-chevron-down"></span>
+                                <img class="mr-2" src="{{ asset('assets/images/flags/us_flag.jpg') }}" alt="Header Language" height="16"> English <span class="mdi mdi-chevron-down"></span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <img src="assets/images/flags/germany_flag.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle"> German </span>
+                                    <img src="{{ asset('assets/images/flags/germany_flag.jpg') }}" alt="user-image" class="mr-1" height="12"> <span class="align-middle"> German </span>
                                 </a>
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <img src="assets/images/flags/italy_flag.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle"> Italian </span>
+                                    <img src="{{ asset('assets/images/flags/italy_flag.jpg') }}" alt="user-image" class="mr-1" height="12"> <span class="align-middle"> Italian </span>
                                 </a>
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <img src="assets/images/flags/french_flag.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle"> French </span>
+                                    <img src="{{ asset('assets/images/flags/french_flag.jpg') }}" alt="user-image" class="mr-1" height="12"> <span class="align-middle"> French </span>
                                 </a>
 
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <img src="assets/images/flags/spain_flag.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle"> Spanish </span>
+                                    <img src="{{ asset('assets/images/flags/spain_flag.jpg') }}" alt="user-image" class="mr-1" height="12"> <span class="align-middle"> Spanish </span>
                                 </a>
 
                                  <!-- item-->
                                  <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <img src="assets/images/flags/russia_flag.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle"> Russian </span>
+                                    <img src="{{ asset('assets/images/flags/russia_flag.jpg') }}" alt="user-image" class="mr-1" height="12"> <span class="align-middle"> Russian </span>
                                 </a>
                             </div>
                         </div>
@@ -220,8 +220,7 @@
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="rounded-circle header-profile-user" src="assets/images/users/user-4.jpg"
-                                    alt="Header Avatar">
+                                <img class="rounded-circle header-profile-user" src="{{ asset('assets/images/users/user-4.jpg') }}" alt="Header Avatar">
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <!-- item-->
