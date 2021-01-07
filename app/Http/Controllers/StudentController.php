@@ -2,11 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Student;
+use App\Classroom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
+
+    /**
+     * Construct.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +28,11 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $students = Student::with('users')->get();
+
+        return view('pages.students.index')->with([
+            'students' => $students
+        ]);
     }
 
     /**
@@ -24,7 +42,11 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        $classrooms = Classroom::all();
+
+        return view('pages.students.create')->with([
+            'classrooms' => $classrooms
+        ]);
     }
 
     /**
@@ -35,13 +57,27 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User;
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->password = Hash::make($request->get('password'));
+        $user->role = 'student';
+        $user->save();
+
+        $student = new Student;
+        $student->user_id = $user->id;
+        $student->classroom_id = $request->get('classroom');
+        $student->nis = $request->get('nis');
+        $student->save();
+
+        $request->session()->flash('status', 'New Student has been added !');
+        return redirect('/students');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\student  $student
      * @return \Illuminate\Http\Response
      */
     public function show(Student $student)
@@ -52,34 +88,58 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\student  $student
      * @return \Illuminate\Http\Response
      */
-    public function edit(Student $student)
+    public function edit($student)
     {
-        //
+        $classrooms = Classroom::all();
+        $data = Student::with('users', 'classrooms')->where('id', $student)->first();
+
+        // return response()->json($data);
+        return view('pages.students.edit')->with([
+            'student' => $data,
+            'classrooms' => $classrooms
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Student  $student
+     * @param  \App\student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, $student)
     {
-        //
+        $student = Student::findOrFail($student);
+        $student->nis = $request->get('nis');
+        $student->save();
+
+        $user = User::where('id', $student->user_id)->first();
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->save();
+
+        $request->session()->flash('status', 'student has been updated !');
+        return redirect('/students');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Student  $student
+     * @param  \App\student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy(Request $request, $student)
     {
-        //
+        $datastudent = Student::findOrFail($student);
+        $dataUser =  User::where('id', $datastudent->user_id)->first();
+        $datastudent->delete();
+        $dataUser->delete();
+
+        $request->session()->flash('statusDelete', 'student has been deleted !');
+        return redirect('/students');
     }
+
 }
