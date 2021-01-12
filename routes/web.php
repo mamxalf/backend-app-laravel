@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
+Route::get('/countdown', 'AbsentController@countdown')->name('countdown');
 
 Route::resource('classrooms', 'ClassroomController');
 Route::resource('rooms', 'RoomController');

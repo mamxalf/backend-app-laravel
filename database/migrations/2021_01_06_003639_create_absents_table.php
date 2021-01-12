@@ -18,8 +18,8 @@ class CreateAbsentsTable extends Migration
             $table->bigInteger('schedule_id')->unsigned();
             $table->bigInteger('teacher_id')->unsigned();
             $table->time('start');
-            $table->time('finish');
-            $table->longText('info');
+            $table->time('finish')->nullable();
+            $table->longText('info')->nullable();
             $table->string('token_generate');
             $table->timestamps();
         });
