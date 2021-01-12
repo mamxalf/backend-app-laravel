@@ -2,11 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Absent;
+use App\Teacher;
+use App\Schedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AbsentController extends Controller
 {
+    /**
+     * Construct.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +28,11 @@ class AbsentController extends Controller
      */
     public function index()
     {
-        //
+        $schedules = Schedule::with('courses', 'classrooms', 'rooms')->get();
+
+        return view('pages.absents.index')->with([
+            'schedules' => $schedules
+        ]);
     }
 
     /**
@@ -24,7 +42,10 @@ class AbsentController extends Controller
      */
     public function create()
     {
-        //
+        // $teachers = Teacher::with('users')->get();
+        // return view('pages.absents.create')->with([
+        //     'teachers' => $teachers
+        // ]);
     }
 
     /**
@@ -35,7 +56,27 @@ class AbsentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // function generateRandomString($length = 10) {
+        //     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        //     $charactersLength = strlen($characters);
+        //     $randomString = '';
+        //     for ($i = 0; $i < $length; $i++) {
+        //         $randomString .= $characters[rand(0, $charactersLength - 1)];
+        //     }
+        //     return $randomString;
+        // }
+
+        // $now = new DateTime();
+        // $absent = new Absent;
+        // $absent->schedule_id = $request->get('schedule');
+        // $absent->teacher_id = $request->get('teacher');
+        // $absent->start = $now->format('H:i:s');
+        // $absent->info = $request->get('info');
+        // $absent->token_generate = generateRandomString(5);
+        // $absent->save();
+
+        // $request->session()->flash('time', $now->format('H:i:s'));
+        // return redirect('/countdown');
     }
 
     /**
@@ -81,5 +122,10 @@ class AbsentController extends Controller
     public function destroy(Absent $absent)
     {
         //
+    }
+
+    public function countdown()
+    {
+        return view('pages.absents.countdown');
     }
 }
