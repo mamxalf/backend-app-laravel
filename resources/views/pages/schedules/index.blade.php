@@ -86,6 +86,8 @@
                                     <td>{{ $schedule->schedule_start }}</td>
                                     <td>{{ $schedule->schedule_finish }}</td>
                                     <td>
+                                        <a href="{{ route('absents.create', ['id' => $schedule->id]) }}"
+                                            class="btn btn-info waves-effect waves-light">Start Absen</a>
                                         <a href="{{ route('schedules.edit', [$schedule->id]) }}"
                                             class="btn btn-warning waves-effect waves-light">Update</a>
                                         <form class="d-inline"

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 Auth::routes();
@@ -26,3 +26,6 @@ Route::resource('teachers', 'TeacherController');
 Route::resource('students', 'StudentController');
 Route::resource('courses', 'CourseController');
 Route::resource('schedules', 'ScheduleController');
+
+// absent
+Route::resource('absents', 'AbsentController');
