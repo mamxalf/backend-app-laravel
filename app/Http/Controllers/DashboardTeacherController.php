@@ -2,28 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use DateTime;
+use App\User;
+use App\Course;
 use App\Absent;
-use App\Teacher;
-use App\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Console\Scheduling\Schedule as CronSchedule;
 
-class AbsentController extends Controller
+// Datetime
+use DateTime;
+use DateTimeZone;
+use DateInterval;
+
+class DashboardTeacherController extends Controller
 {
     public $tokenAbsentGeneratePublic = '';
     public $tokenAbsentPublic = '';
-    /**
-     * Construct.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Display a listing of the resource.
@@ -32,10 +26,15 @@ class AbsentController extends Controller
      */
     public function index()
     {
-        $schedules = Schedule::with('courses', 'classrooms', 'rooms')->get();
+        // dd(Auth::user()->id);
+        $userID = Auth::user()->id;
+        $user = User::with('teachers')->where('id', $userID)->first();
+        $courses = Course::with('schedules.classrooms', 'schedules.rooms')->where('teacher_id', $user->teachers->id)->get();
+        // $schedules = Schedule::with('courses', 'classrooms', 'rooms')->where('course_id', $courses->id)->get();
 
-        return view('pages.absents.index')->with([
-            'schedules' => $schedules
+        // return response()->json($courses);
+        return view('teacher-dashboard.schedules')->with([
+            'courses' => $courses
         ]);
     }
 
@@ -46,10 +45,7 @@ class AbsentController extends Controller
      */
     public function create()
     {
-        $teachers = Teacher::with('users')->get();
-        return view('pages.absents.create')->with([
-            'teachers' => $teachers
-        ]);
+        return view('teacher-dashboard.form-start');
     }
 
     /**
@@ -58,7 +54,7 @@ class AbsentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, CronSchedule $schedule)
+    public function store(Request $request)
     {
         function generateRandomString($length = 10) {
             $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -73,12 +69,17 @@ class AbsentController extends Controller
         $tokenAbsentGenerate = generateRandomString(7);
         $this->tokenAbsentGeneratePublic = $tokenAbsentGenerate;
 
-        $now = now();
-        $finish = now()->addMinutes(45);
+        // dd($now);
+        $start = new DateTime("now", new DateTimeZone('Asia/Jakarta') );
+
+        $minute = 45;
+        $now = new DateTime("now", new DateTimeZone('Asia/Jakarta') );
+        $finish = $now->add(new DateInterval('PT' . $minute . 'M'));
+        // dd($finish);
         $absent = new Absent;
         $absent->schedule_id = $request->get('schedule');
-        $absent->teacher_id = $request->get('teacher');
-        $absent->start = $now;
+        $absent->teacher_id = Auth::user()->id;
+        $absent->start = $start;
         $absent->finish = $finish;
         $absent->info = $request->get('info');
         $absent->token_generate = $tokenAbsentGenerate;
@@ -86,25 +87,29 @@ class AbsentController extends Controller
 
         $tokenAbsent = generateRandomString(5);
         $this->tokenAbsentPublic = $tokenAbsent;
-        $schedule->call(function () {
-            DB::table('tokens_absent')->insert([
-                'token_absent' => $this->tokenAbsentGeneratePublic,
-                'status' => true,
-                'token_generate' => $this->tokenAbsentPublic
-            ]);
-        })->everyMinute()->between($now, $finish);
 
-        $request->session()->flash('time', $now->format('H:i:s'));
-        return redirect('/countdown');
+        DB::table('tokens_absent')->insert([
+            'token_absent' => $this->tokenAbsentGeneratePublic,
+            'status' => true,
+            'token_generate' => $this->tokenAbsentPublic
+        ]);
+
+        // $request->session()->flash('time', $start->format('H:i:s'));
+        return view('teacher-dashboard.countdown')->with([
+            'start' => $start->format('H:i:s'),
+            'finish' => $finish->format('H:i:s'),
+            'token_absent' => $this->tokenAbsentGeneratePublic,
+            'token_generate' => $this->tokenAbsentPublic
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Absent  $absent
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Absent $absent)
+    public function show($id)
     {
         //
     }
@@ -112,10 +117,10 @@ class AbsentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Absent  $absent
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Absent $absent)
+    public function edit($id)
     {
         //
     }
@@ -124,10 +129,10 @@ class AbsentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Absent  $absent
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Absent $absent)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -135,16 +140,16 @@ class AbsentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Absent  $absent
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Absent $absent)
+    public function destroy($id)
     {
         //
     }
 
-    public function countdown()
+    public function dashboard()
     {
-        return view('pages.absents.countdown');
+        return view('teacher-dashboard.index');
     }
 }

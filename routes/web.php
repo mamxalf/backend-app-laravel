@@ -30,3 +30,12 @@ Route::resource('schedules', 'ScheduleController');
 
 // absent
 Route::resource('absents', 'AbsentController');
+
+Route::get('/dashboard-teacher', 'DashboardTeacherController@dashboard')->name('dashboard-teacher');
+Route::get('/schedules-teacher', 'DashboardTeacherController@index')->name('schedules-teacher');
+Route::get('/start-absent', 'DashboardTeacherController@create')->name('form-start');
+Route::post('/start-absent', 'DashboardTeacherController@store')->name('start-absent');
+
+Route::get('/cek-countdown', function () {
+    return view('teacher-dashboard.countdown');
+});
