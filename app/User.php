@@ -42,4 +42,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Teacher::class, 'id', 'user_id');
     }
+
+    public function students()
+    {
+        return $this->belongsTo(Student::class, 'id', 'user_id');
+    }
+
+    public function classrooms()
+    {
+        return $this->hasOne(Classroom::class, 'id', 'classroom_id');
+    }
 }

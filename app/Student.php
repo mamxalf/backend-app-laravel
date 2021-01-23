@@ -13,6 +13,7 @@ class Student extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
     public function classrooms()
     {
         return $this->hasOne(Classroom::class, 'id', 'classroom_id');

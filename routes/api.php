@@ -13,9 +13,21 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::post('/login', 'api\UserController@login');
-Route::post('/logout', 'api\UserController@logout')->middleware('auth:api');
+
+Route::group(['middleware' => ['auth:api']], function () {
+    Route::post('/logout', 'api\UserController@logout');
+
+    // api pelajaran
+
+    // api absensi
+    Route::post('/absent/{token}', 'api\AppController@userAbsent');
+
+    // info pribadi
+    Route::get('/user', 'api\AppController@privateData');
+});
+
