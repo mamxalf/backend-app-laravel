@@ -17,7 +17,7 @@ class CreateValidationsAbsentTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('student_id')->unsigned();
             $table->string('token_absent');
-            $table->date('time_absent');
+            $table->dateTime('time_absent');
             $table->timestamps();
         });
     }

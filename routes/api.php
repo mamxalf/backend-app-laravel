@@ -25,9 +25,12 @@ Route::group(['middleware' => ['auth:api']], function () {
     // api pelajaran
 
     // api absensi
-    Route::post('/absent/{token}', 'api\AppController@userAbsent');
+    Route::post('/absent', 'api\AppController@userAbsent');
 
     // info pribadi
     Route::get('/user', 'api\AppController@privateData');
+    Route::get('/count/classroom/{classroom_id}', 'api\AppController@totalCourse');
 });
 
+// Route::get('/cek', 'api\AppController@cek');
+Route::get('/cek/{classroom_id}', 'api\AppController@totalCourse');
