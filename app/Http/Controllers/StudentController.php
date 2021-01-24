@@ -30,9 +30,11 @@ class StudentController extends Controller
     {
         $students = Student::with('users')->get();
 
-        return view('pages.students.index')->with([
-            'students' => $students
-        ]);
+        // return view('pages.students.index')->with([
+        //     'students' => $students
+        // ]);
+
+        return response()->json($students);
     }
 
     /**
@@ -141,5 +143,4 @@ class StudentController extends Controller
         $request->session()->flash('statusDelete', 'student has been deleted !');
         return redirect('/students');
     }
-
 }

@@ -1,18 +1,16 @@
 @extends('layouts.master-without-nav')
 
 @section('title')
-Register
+    Register
 @endsection
 
 @section('body')
-<body>
-@endsection
 
-@section('content')
+    <body>
+    @endsection
 
-        <div class="home-btn d-none d-sm-block">
-            <a href="index" class="text-dark"><i class="fas fa-home h2"></i></a>
-        </div>
+    @section('content')
+
         <div class="account-pages my-5 pt-5">
             <div class="container">
                 <div class="row justify-content-center">
@@ -32,7 +30,9 @@ Register
 
                                         <div class="form-group">
                                             <label for="fullname">Full Name</label>
-                                            <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}" required name="name" id="fullname" placeholder="Enter Full Name">
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                                value="{{ old('name') }}" required name="name" id="fullname"
+                                                placeholder="Enter Full Name">
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -42,7 +42,9 @@ Register
 
                                         <div class="form-group">
                                             <label for="useremail">Email</label>
-                                            <input type="email" class="form-control @error('email') is-invalid @enderror" value="{{old('email')}}" id="useremail" name="email" required placeholder="Enter email">
+                                            <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                                value="{{ old('email') }}" id="useremail" name="email" required
+                                                placeholder="Enter email">
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -52,7 +54,9 @@ Register
 
                                         <div class="form-group">
                                             <label for="userpassword">Password</label>
-                                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" required id="userpassword" placeholder="Enter password">
+                                            <input type="password"
+                                                class="form-control @error('password') is-invalid @enderror" name="password"
+                                                required id="userpassword" placeholder="Enter password">
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -62,18 +66,22 @@ Register
 
                                         <div class="form-group">
                                             <label for="userpassword">Password</label>
-                                            <input id="password-confirm" type="password" name="password_confirmation" class="form-control @error('password') is-invalid @enderror" name="password" required placeholder="Enter password">
+                                            <input id="password-confirm" type="password" name="password_confirmation"
+                                                class="form-control @error('password') is-invalid @enderror" name="password"
+                                                required placeholder="Enter password">
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-12 text-right">
-                                                <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Register</button>
+                                                <button class="btn btn-primary w-md waves-effect waves-light"
+                                                    type="submit">Register</button>
                                             </div>
                                         </div>
 
                                         <div class="form-group mt-2 mb-0 row">
                                             <div class="col-12 mt-4">
-                                                <p class="mb-0">By registering you agree to the Veltrix <a href="#" class="text-primary">Terms of Use</a></p>
+                                                <p class="mb-0">By registering you agree to the Veltrix <a href="#"
+                                                        class="text-primary">Terms of Use</a></p>
                                             </div>
                                         </div>
 
@@ -85,8 +93,12 @@ Register
                         </div>
 
                         <div class="mt-5 text-center">
-                            <p>Already have an account ? <a href="/login" class="font-weight-medium text-primary"> Login </a> </p>
-                            <p>© <script>document.write(new Date().getFullYear())</script> Veltrix. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                            <p>Already have an account ? <a href="/login" class="font-weight-medium text-primary"> Login
+                                </a> </p>
+                            <p>© <script>
+                                    document.write(new Date().getFullYear())
+
+                                </script> Veltrix. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
                         </div>
 
 
@@ -95,4 +107,4 @@ Register
             </div>
         </div>
 
-@endsection
+    @endsection
