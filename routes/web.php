@@ -19,7 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
-Route::get('/countdown', 'AbsentController@countdown')->name('countdown');
 
 Route::resource('classrooms', 'ClassroomController');
 Route::resource('rooms', 'RoomController');
@@ -35,7 +34,9 @@ Route::get('/dashboard-teacher', 'DashboardTeacherController@dashboard')->name('
 Route::get('/schedules-teacher', 'DashboardTeacherController@index')->name('schedules-teacher');
 Route::get('/start-absent', 'DashboardTeacherController@create')->name('form-start');
 Route::post('/start-absent', 'DashboardTeacherController@store')->name('start-absent');
+Route::put('/stop-absent/{token}', 'DashboardTeacherController@stop')->name('stop-absent');
 
+Route::get('/countdown', 'AbsentController@countdown')->name('countdown');
 Route::get('/cek-countdown', function () {
     return view('teacher-dashboard.countdown');
 });

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Course;
 use App\Absent;
+use App\TokenAbsent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 
 // Datetime
@@ -18,6 +20,22 @@ class DashboardTeacherController extends Controller
 {
     public $tokenAbsentGeneratePublic = '';
     public $tokenAbsentPublic = '';
+
+    /**
+     * Construct.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware(function($request, $next){
+
+            if(Gate::allows('isTeacher')) return $next($request);
+
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        });
+    }
 
     /**
      * Display a listing of the resource.
@@ -151,5 +169,14 @@ class DashboardTeacherController extends Controller
     public function dashboard()
     {
         return view('teacher-dashboard.index');
+    }
+
+    public function stop(Request $request, $token)
+    {
+        $data = TokenAbsent::where('token_absent', $token)->first();
+        $data->status = 0;
+        $data->save();
+
+        return redirect('/dashboard-teacher');
     }
 }

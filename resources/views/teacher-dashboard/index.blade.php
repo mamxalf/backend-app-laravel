@@ -11,7 +11,7 @@
             <div class="page-title-box">
                 <h4 class="font-size-18">Dashboard</h4>
                 <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item active">Welcome to {{ Auth::user()->role }}</li>
+                    <li class="breadcrumb-item active">Welcome to the Club</li>
                 </ol>
             </div>
         </div>

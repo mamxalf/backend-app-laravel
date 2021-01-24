@@ -7,9 +7,26 @@ use App\Course;
 use App\Schedule;
 use App\Classroom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ScheduleController extends Controller
 {
+    /**
+     * Construct.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware(function($request, $next){
+
+            if(Gate::allows('isAdmin')) return $next($request);
+
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *

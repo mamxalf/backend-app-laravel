@@ -8,6 +8,7 @@ use App\Teacher;
 use App\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Console\Scheduling\Schedule as CronSchedule;
 
@@ -23,6 +24,14 @@ class AbsentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(function($request, $next){
+
+            if(Gate::allows('isAdmin')) return $next($request);
+            if(Gate::allows('isTeacher')) return $next($request);
+
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        });
+
     }
 
     /**

@@ -20,32 +20,21 @@
         <div class="content-center w-100">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="home-wrapper text-center">
                             <div class="row justify-content-center">
                                 <div class="col-md-12 justify-content-center">
-                                    <div class="border border-dark mx-auto w-50">
-                                        <h1 id="code" class="my-auto text-dark"> {{ $token_generate }} </h1>
+                                    <div class="border border-dark mx-auto" style="width: 400px;">
+                                        <h1 id="code" class="my-auto text-dark"> QRCode </h1>
                                     </div>
                                     <div class="w-full">
                                         <div id="qrcode" class="mt-3 mx-auto" style="width: 400px;"></div>
-                                    </div>
-                                    <div class="border border-dark mx-auto w-50 my-3">
-                                        <h1 id="time" class="my-auto text-dark"></h1>
-                                    </div>
-                                    <div>
-                                        {{-- <a href="javascript:void();" class="btn btn-danger"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">STOP ABSENT NOW !</a> --}}
-                                        <form onsubmit="return confirm('are you sure?')" id="logout-form" action="{{ route('stop-absent', [$token_absent]) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('put')
-                                            <input type="submit" name="" id="" value="STOP ABSENT NOW !" class="btn btn-danger">
-                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-lg-6">
+                    <div class="col-lg-6">
                         <div class="home-wrapper text-center">
                             <div class="row justify-content-center">
                                 <div class="col-md-8">
@@ -72,7 +61,7 @@
                             </div>
                         </div>
                         <!-- end home wrapper -->
-                    </div> --}}
+                    </div>
                 </div>
                 <!-- end row -->
             </div>
@@ -120,7 +109,7 @@
     <script src="{{ URL::asset('assets/js/qrcode.min.js') }}"></script>
     <script>
         new QRCode(document.getElementById("qrcode"), {
-            text: "{!! $token_generate !!}",
+            text: "cek",
             width: 400,
             height: 400,
             colorDark: "#000000",

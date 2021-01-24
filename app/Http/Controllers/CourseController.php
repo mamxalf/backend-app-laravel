@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CourseController extends Controller
 {
@@ -16,6 +17,12 @@ class CourseController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(function($request, $next){
+
+            if(Gate::allows('isAdmin')) return $next($request);
+
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        });
     }
 
     /**
