@@ -179,4 +179,36 @@ class DashboardTeacherController extends Controller
 
         return redirect('/dashboard-teacher');
     }
+
+    public function listCourses()
+    {
+        $user = User::with('teachers')->where('id', Auth::user()->id)->first();
+        // return response()->json($user);
+        $teacherID = $user->teachers->id;
+        // dd($teacherID);
+        $courses = Course::with('teachers.users')->where('teacher_id', $teacherID)->get();
+
+        return view('teacher-dashboard.courses')->with([
+            'courses' => $courses
+        ]);
+    }
+
+    public function updateCourse(Request $request, $id_course)
+    {
+        $course = Course::findOrFail($id_course);
+        $course->course_title = $request->get('course');
+        $course->save();
+
+        $request->session()->flash('status', 'Course has been updated !');
+        return redirect('/courses-teacher');
+    }
+
+    public function viewUpdateCourse($id_course)
+    {
+        $data = Course::with('teachers.users')->where('id', $id_course)->first();
+
+        return view('teacher-dashboard.update-course')->with([
+            'course' => $data
+        ]);
+    }
 }

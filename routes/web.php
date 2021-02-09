@@ -32,6 +32,9 @@ Route::resource('absents', 'AbsentController');
 
 Route::get('/dashboard-teacher', 'DashboardTeacherController@dashboard')->name('dashboard-teacher');
 Route::get('/schedules-teacher', 'DashboardTeacherController@index')->name('schedules-teacher');
+Route::get('/courses-teacher', 'DashboardTeacherController@listCourses')->name('courses-teacher');
+Route::get('/courses-teacher-edit/{id_course}', 'DashboardTeacherController@viewUpdateCourse')->name('courses-teacher-edit');
+Route::put('/courses-teacher-update/{id_course}', 'DashboardTeacherController@updateCourse')->name('courses-teacher-update');
 Route::get('/start-absent', 'DashboardTeacherController@create')->name('form-start');
 Route::post('/start-absent', 'DashboardTeacherController@store')->name('start-absent');
 Route::put('/stop-absent/{token}', 'DashboardTeacherController@stop')->name('stop-absent');

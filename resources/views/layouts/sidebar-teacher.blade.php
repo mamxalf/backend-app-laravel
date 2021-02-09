@@ -23,6 +23,13 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('courses-teacher') }}" class="waves-effect">
+                        <i class="ti-clipboard"></i>
+                        <span>Courses</span>
+                    </a>
+                </li>
+
                 {{-- <li>
                     <a href="{{ route('absents.index') }}" class="waves-effect">
                         <i class="ti-bookmark-alt"></i>

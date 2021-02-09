@@ -104,9 +104,9 @@ class CourseController extends Controller
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $course)
+    public function update(Request $request, $id_course)
     {
-        $course = Course::findOrFail($course);
+        $course = Course::findOrFail($id_course);
         $course->course_title = $request->get('course');
         $course->teacher_id = $request->get('teacher');
         $course->save();
