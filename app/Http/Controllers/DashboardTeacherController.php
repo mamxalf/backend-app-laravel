@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use stdClass;
 use App\User;
 use App\Course;
 use App\Absent;
+use App\Teacher;
+use App\Student;
+use App\Schedule;
 use App\TokenAbsent;
+use App\ValidationAbsent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -96,7 +101,10 @@ class DashboardTeacherController extends Controller
         // dd($finish);
         $absent = new Absent;
         $absent->schedule_id = $request->get('schedule');
-        $absent->teacher_id = Auth::user()->id;
+
+        // teacher id
+        $teacher = Teacher::where('user_id', Auth::user()->id)->first();
+        $absent->teacher_id = $teacher->id;
         $absent->start = $start;
         $absent->finish = $finish;
         $absent->info = $request->get('info');
@@ -188,6 +196,7 @@ class DashboardTeacherController extends Controller
         // dd($teacherID);
         $courses = Course::with('teachers.users')->where('teacher_id', $teacherID)->get();
 
+        // return response()->json($courses);
         return view('teacher-dashboard.courses')->with([
             'courses' => $courses
         ]);
@@ -209,6 +218,66 @@ class DashboardTeacherController extends Controller
 
         return view('teacher-dashboard.update-course')->with([
             'course' => $data
+        ]);
+    }
+
+    public function showResume()
+    {
+        $teacher = Teacher::where('user_id', Auth::user()->id)->first();
+        // dd($teacher);
+        $resumes = Absent::with('schedule.courses')->where('teacher_id', $teacher->id)->get();
+
+        return view('teacher-dashboard.resume')->with([
+            'resumes' => $resumes
+        ]);
+    }
+
+    public function showSchedule($schedule_id)
+    {
+        $teacher = Teacher::where('user_id', Auth::user()->id)->first();
+        $schedules = Schedule::with('courses')->where('teacher_id', $teacher->id)->get();
+        // return response()->json($schedules);
+        return view('teacher-dashboard.list')->with([
+            'schedules' => $schedules
+        ]);
+    }
+
+    public function showAbsent($schedule_id)
+    {
+        $schedule = Schedule::with('courses')->where('id', $schedule_id)->first();
+        $userAbsents = ValidationAbsent::where('schedule_id', $schedule_id)->groupBy('student_id')->select('student_id', DB::raw('count(*) as total'))->get();
+
+        $arr = [];
+
+        foreach ($userAbsents as $absent) {
+            $student = Student::where('id', $absent->student_id)->with('users')->first();
+
+            $objStudent = new stdClass();
+            $objStudent->id = $absent->student_id;
+            $objStudent->total = $absent->total;
+            $objStudent->data = $student;
+
+            // $data = [
+            //     'id' => $absent->student_id,
+            //     'total' =>  $absent->total,
+            //     'data' => $student,
+            // ];
+
+            // $jsonStudent = json_encode($objStudent);
+
+            // return response()->json($data);
+
+            // $arr[] = $data;
+            $arr[] = $objStudent;
+            // array_push($objStudent, $arr);
+        }
+
+        // $arrJson = json_encode($arr);
+
+        // return response()->json($arr);
+        return view('teacher-dashboard.list')->with([
+            'data' => $arr,
+            'schedule' => $schedule
         ]);
     }
 }

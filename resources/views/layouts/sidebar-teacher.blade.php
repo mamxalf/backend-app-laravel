@@ -30,6 +30,20 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('resume-teacher') }}" class="waves-effect">
+                        <i class="ti-bookmark-alt"></i>
+                        <span>Resume</span>
+                    </a>
+                </li>
+
+                {{-- <li>
+                    <a href="{{ route('absent-schedule-teacher') }}" class="waves-effect">
+                        <i class="ti-bookmark-alt"></i>
+                        <span>Data Absent</span>
+                    </a>
+                </li> --}}
+
                 {{-- <li>
                     <a href="{{ route('absents.index') }}" class="waves-effect">
                         <i class="ti-bookmark-alt"></i>
