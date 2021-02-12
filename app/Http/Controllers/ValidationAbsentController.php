@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Student;
 use App\ValidationAbsent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class ValidationAbsentController extends Controller
 {
@@ -14,7 +17,39 @@ class ValidationAbsentController extends Controller
      */
     public function index()
     {
-        //
+        // $arrDesign = DesignerFavorite::groupBy('name_designer')->select('name_designer', DB::raw('count(*) as total'))->get();
+        $userAbsents = ValidationAbsent::groupBy('student_id')->select('student_id', DB::raw('count(*) as total'))->get();
+
+        $arr = [];
+
+        foreach ($userAbsents as $key => $absent) {
+            $student = Student::where('id', $absent->student_id)->with('users')->get();
+
+            // $objStudent = new stdClass();
+            // $objStudent->id = $absent->student_id;
+            // $objStudent->total = $absent->total;
+            // $objStudent->data = $student;
+
+            $data = [
+                'id' => $absent->student_id,
+                'total' =>  $absent->total,
+                'data' => $student
+            ];
+
+            // $jsonStudent = json_encode($objStudent);
+
+            // return response()->json($data);
+
+            $arr[] = $data;
+        //    $arr[] = $objStudent;
+            // array_push($objStudent, $arr);
+        }
+
+
+        return response()->json($arr);
+        // return view('pages.user-absent.index')->with([
+        //     'totals' => $userAbsents
+        // ]);
     }
 
     /**

@@ -44,13 +44,6 @@
                 </a>
             </li>
 
-            {{-- <li>
-                <a href="{{ route('absents.index') }}" class="waves-effect">
-                    <i class="ti-tag"></i>
-                    <span>Absent</span>
-                </a>
-            </li> --}}
-
             <li class="menu-title">users</li>
 
             <li>
@@ -64,6 +57,22 @@
                 <a href="{{ route('students.index') }}" class="waves-effect">
                     <i class="mdi mdi-account-box-multiple-outline"></i>
                     <span>Student</span>
+                </a>
+            </li>
+
+            <li class="menu-title">resume</li>
+
+            <li>
+                <a href="{{ route('absents.index') }}" class="waves-effect">
+                    <i class="ti-bookmark-alt"></i>
+                    <span>Resume</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('val-absent.index') }}" class="waves-effect">
+                    <i class="ti-bookmark-alt"></i>
+                    <span>Total Absent</span>
                 </a>
             </li>
 

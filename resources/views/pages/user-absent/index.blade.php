@@ -63,25 +63,17 @@
                         <thead>
                             <tr>
                                 <th>NO</th>
-                                <th>Course Title</th>
-                                <th>Date Time</th>
-                                {{-- <th>Time</th> --}}
-                                <th>Resume</th>
+                                <th>User ID</th>
+                                <th>Total</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach ($resumes as $key => $resume)
+                            @foreach ($totals as $key => $total)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $resume->schedule->courses->course_title }}</td>
-                                    <td>{{ $resume->created_at->format('l jS \\of F Y h:i:s A') }}</td>
-                                    {{-- <td>{{ $resume->start }} - {{ $resume->finish }}</td> --}}
-                                    <td>{{ $resume->info }}</td>
-                                    {{-- <td>
-                                        <a href="{{ route('absents.create', ['id' => $resume->id]) }}"
-                                            class="btn btn-primary waves-effect waves-light">Start</a>
-                                    </td> --}}
+                                    <td>{{ $total->student_id }}</td>
+                                    <td>{{ $total->total }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

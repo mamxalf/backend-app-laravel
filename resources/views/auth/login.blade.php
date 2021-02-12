@@ -53,12 +53,12 @@
 
                                         <div class="form-group row">
                                             <div class="col-sm-6">
-                                                <div class="custom-control custom-checkbox">
+                                                {{-- <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input"
                                                         id="customControlInline">
                                                     <label class="custom-control-label" for="customControlInline">Remember
                                                         me</label>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div class="col-sm-6 text-right">
                                                 <button class="btn btn-primary w-md waves-effect waves-light"
@@ -66,12 +66,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group mt-2 mb-0 row">
+                                        {{-- <div class="form-group mt-2 mb-0 row">
                                             <div class="col-12 mt-4">
                                                 <a href="/password/reset"><i class="mdi mdi-lock"></i> Forgot your
                                                     password?</a>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </form>
                                 </div>
                             </div>
@@ -85,8 +85,7 @@
                             <p class="mb-0">© <script>
                                     document.write(new Date().getFullYear())
 
-                                </script> mamxalf. Crafted with <i class="mdi mdi-heart text-danger"></i> | Powered by
-                                Themesbrand - Veltrix</p>
+                                </script> mamxalf. Crafted with <i class="mdi mdi-heart text-danger"></i> | Powered by Amikom Center</p>
                         </div>
 
                     </div>

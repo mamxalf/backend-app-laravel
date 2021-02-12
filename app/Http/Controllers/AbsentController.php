@@ -41,10 +41,13 @@ class AbsentController extends Controller
      */
     public function index()
     {
-        $schedules = Schedule::with('courses', 'classrooms', 'rooms')->get();
+        // $schedules = Schedule::with('courses', 'classrooms', 'rooms')->get();
+        $resumes = Absent::with('schedule.courses')->get();
+
+        // return response()->json($resumes);
 
         return view('pages.absents.index')->with([
-            'schedules' => $schedules
+            'resumes' => $resumes
         ]);
     }
 

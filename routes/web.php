@@ -26,6 +26,7 @@ Route::resource('teachers', 'TeacherController');
 Route::resource('students', 'StudentController');
 Route::resource('courses', 'CourseController');
 Route::resource('schedules', 'ScheduleController');
+Route::resource('val-absent', 'ValidationAbsentController');
 
 // absent
 Route::resource('absents', 'AbsentController');
