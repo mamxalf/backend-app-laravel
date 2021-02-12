@@ -11,12 +11,7 @@
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="page-title-box">
-                <h4 class="font-size-18">Data Resume</h4>
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Veltrix</a></li>
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                    <li class="breadcrumb-item active">Schedules</li>
-                </ol>
+                <h4><span class="font-weight-light">Data Absent : </span> {{ $schedule->courses->course_title }}</h4>
             </div>
         </div>
 
@@ -63,25 +58,19 @@
                         <thead>
                             <tr>
                                 <th>NO</th>
-                                <th>Course Title</th>
-                                <th>Date Time</th>
-                                {{-- <th>Time</th> --}}
-                                <th>Resume</th>
+                                <th>User ID</th>
+                                <th>Student Name</th>
+                                <th>Total</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach ($resumes as $key => $resume)
+                            @foreach ($data as $key => $d)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $resume->schedule->courses->course_title }}</td>
-                                    <td>{{ $resume->created_at->format('l jS \\of F Y h:i:s A') }}</td>
-                                    {{-- <td>{{ $resume->start }} - {{ $resume->finish }}</td> --}}
-                                    <td>{{ $resume->info }}</td>
-                                    {{-- <td>
-                                        <a href="{{ route('absents.create', ['id' => $resume->id]) }}"
-                                            class="btn btn-primary waves-effect waves-light">Start</a>
-                                    </td> --}}
+                                    <td>{{ $d->id }}</td>
+                                    <td>{{ $d->data->users->name }}</td>
+                                    <td>{{ $d->total }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -101,5 +90,7 @@
     <script src="{{ URL::asset('assets/libs/pdfmake/pdfmake.min.js') }}"></script>
 
     <script src="{{ URL::asset('assets/js/pages/datatables.init.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+        crossorigin="anonymous"></script>
 @endsection

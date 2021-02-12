@@ -72,7 +72,7 @@
             <li>
                 <a href="{{ route('val-absent.index') }}" class="waves-effect">
                     <i class="ti-bookmark-alt"></i>
-                    <span>Total Absent</span>
+                    <span>Data Absent</span>
                 </a>
             </li>
 

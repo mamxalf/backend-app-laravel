@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\User;
+use App\Absent;
 use App\Schedule;
 use App\TokenAbsent;
 use App\ValidationAbsent;
@@ -33,9 +34,12 @@ class AppController extends Controller
             ]);
         }
 
+        $dataAbsent = Absent::where('token_generate', $valAbsent->token_absent)->first();
+
         if ($valAbsent->status == 1) {
             $userAbsent = new ValidationAbsent;
             $userAbsent->student_id = $request->get('student_id');
+            $userAbsent->schedule_id = $dataAbsent->schedule_id;
             $userAbsent->token_absent =  $token;
             $userAbsent->time_absent = Carbon::now()->toDateTimeString();
             $userAbsent->save();

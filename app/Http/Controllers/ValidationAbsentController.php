@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Schedule;
 use App\Student;
 use App\ValidationAbsent;
 use Illuminate\Http\Request;
@@ -17,39 +18,11 @@ class ValidationAbsentController extends Controller
      */
     public function index()
     {
-        // $arrDesign = DesignerFavorite::groupBy('name_designer')->select('name_designer', DB::raw('count(*) as total'))->get();
-        $userAbsents = ValidationAbsent::groupBy('student_id')->select('student_id', DB::raw('count(*) as total'))->get();
-
-        $arr = [];
-
-        foreach ($userAbsents as $key => $absent) {
-            $student = Student::where('id', $absent->student_id)->with('users')->get();
-
-            // $objStudent = new stdClass();
-            // $objStudent->id = $absent->student_id;
-            // $objStudent->total = $absent->total;
-            // $objStudent->data = $student;
-
-            $data = [
-                'id' => $absent->student_id,
-                'total' =>  $absent->total,
-                'data' => $student
-            ];
-
-            // $jsonStudent = json_encode($objStudent);
-
-            // return response()->json($data);
-
-            $arr[] = $data;
-        //    $arr[] = $objStudent;
-            // array_push($objStudent, $arr);
-        }
-
-
-        return response()->json($arr);
-        // return view('pages.user-absent.index')->with([
-        //     'totals' => $userAbsents
-        // ]);
+        $schedules = Schedule::with('courses')->get();
+        // return response()->json($schedules);
+        return view('pages.user-absent.index')->with([
+            'schedules' => $schedules
+        ]);
     }
 
     /**
@@ -79,9 +52,43 @@ class ValidationAbsentController extends Controller
      * @param  \App\ValidationAbsent  $validationAbsent
      * @return \Illuminate\Http\Response
      */
-    public function show(ValidationAbsent $validationAbsent)
+    public function show($schedule_id)
     {
-        //
+        $schedule = Schedule::with('courses')->where('id', $schedule_id)->first();
+        $userAbsents = ValidationAbsent::where('schedule_id', $schedule_id)->groupBy('student_id')->select('student_id', DB::raw('count(*) as total'))->get();
+
+        $arr = [];
+
+        foreach ($userAbsents as $absent) {
+            $student = Student::where('id', $absent->student_id)->with('users')->first();
+
+            $objStudent = new stdClass();
+            $objStudent->id = $absent->student_id;
+            $objStudent->total = $absent->total;
+            $objStudent->data = $student;
+
+            // $data = [
+            //     'id' => $absent->student_id,
+            //     'total' =>  $absent->total,
+            //     'data' => $student,
+            // ];
+
+            // $jsonStudent = json_encode($objStudent);
+
+            // return response()->json($data);
+
+            // $arr[] = $data;
+           $arr[] = $objStudent;
+            // array_push($objStudent, $arr);
+        }
+
+        // $arrJson = json_encode($arr);
+
+        // return response()->json($arr);
+        return view('pages.user-absent.show')->with([
+            'data' => $arr,
+            'schedule' => $schedule
+        ]);
     }
 
     /**
