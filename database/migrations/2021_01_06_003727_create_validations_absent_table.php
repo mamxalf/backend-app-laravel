@@ -16,6 +16,7 @@ class CreateValidationsAbsentTable extends Migration
         Schema::create('validations_absent', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('student_id')->unsigned();
+            $table->bigInteger('schedule_id')->unsigned();
             $table->string('token_absent');
             $table->dateTime('time_absent');
             $table->timestamps();
