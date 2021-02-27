@@ -77,8 +77,8 @@
                                     <td>{{ $course->course_title }}</td>
                                     <td>{{ $course->teachers->users->name }}</td>
                                     <td>
-                                        {{-- <a href="{{ route('courses-teacher-edit', [$course->id]) }}"
-                                            class="btn btn-warning waves-effect waves-light">Update</a> --}}
+                                        <a href="{{ route('absent-teacher', [$course->id]) }}"
+                                            class="btn btn-primary waves-effect waves-light">Count Absent Student</a>
                                         {{-- <form class="d-inline"
                                             onsubmit="return confirm('Data will be Deleted, Are you sure?')"
                                             action="{{ route('courses.destroy', [$course->id]) }}" method="POST">

@@ -34,12 +34,12 @@ class AppController extends Controller
             ]);
         }
 
-        $dataAbsent = Absent::where('token_generate', $valAbsent->token_absent)->first();
-
+        $dataAbsent = Absent::with('schedule.courses')->where('token_generate', $valAbsent->token_absent)->first();
+        // return response()->json($dataAbsent->schedule->courses->id);
         if ($valAbsent->status == 1) {
             $userAbsent = new ValidationAbsent;
             $userAbsent->student_id = $request->get('student_id');
-            $userAbsent->schedule_id = $dataAbsent->schedule_id;
+            $userAbsent->course_id = $dataAbsent->schedule->courses->id;
             $userAbsent->token_absent =  $token;
             $userAbsent->time_absent = Carbon::now()->toDateTimeString();
             $userAbsent->save();

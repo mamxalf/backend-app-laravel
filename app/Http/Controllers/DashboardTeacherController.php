@@ -242,10 +242,10 @@ class DashboardTeacherController extends Controller
         ]);
     }
 
-    public function showAbsent($schedule_id)
+    public function showAbsent($course_id)
     {
-        $schedule = Schedule::with('courses')->where('id', $schedule_id)->first();
-        $userAbsents = ValidationAbsent::where('schedule_id', $schedule_id)->groupBy('student_id')->select('student_id', DB::raw('count(*) as total'))->get();
+        $userAbsents = ValidationAbsent::where('course_id', $course_id)->groupBy('student_id')->select('student_id', DB::raw('count(*) as total'))->get();
+        $course = Course::findOrFail($course_id);
 
         $arr = [];
 
@@ -257,27 +257,12 @@ class DashboardTeacherController extends Controller
             $objStudent->total = $absent->total;
             $objStudent->data = $student;
 
-            // $data = [
-            //     'id' => $absent->student_id,
-            //     'total' =>  $absent->total,
-            //     'data' => $student,
-            // ];
-
-            // $jsonStudent = json_encode($objStudent);
-
-            // return response()->json($data);
-
-            // $arr[] = $data;
-            $arr[] = $objStudent;
-            // array_push($objStudent, $arr);
+           $arr[] = $objStudent;
         }
 
-        // $arrJson = json_encode($arr);
-
-        // return response()->json($arr);
         return view('teacher-dashboard.list')->with([
-            'data' => $arr,
-            'schedule' => $schedule
+            'lists' => $arr,
+            'course' => $course
         ]);
     }
 }

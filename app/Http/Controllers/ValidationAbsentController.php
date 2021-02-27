@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Schedule;
+use App\Course;
 use App\Student;
+use App\Schedule;
 use App\ValidationAbsent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,10 +37,10 @@ class ValidationAbsentController extends Controller
      */
     public function index()
     {
-        $schedules = Schedule::with('courses')->get();
+        $courses = Course::all();
         // return response()->json($schedules);
         return view('pages.user-absent.index')->with([
-            'schedules' => $schedules
+            'courses' => $courses
         ]);
     }
 
@@ -70,10 +71,10 @@ class ValidationAbsentController extends Controller
      * @param  \App\ValidationAbsent  $validationAbsent
      * @return \Illuminate\Http\Response
      */
-    public function show($schedule_id)
+    public function show($course_id)
     {
-        $schedule = Schedule::with('courses')->where('id', $schedule_id)->first();
-        $userAbsents = ValidationAbsent::where('schedule_id', $schedule_id)->groupBy('student_id')->select('student_id', DB::raw('count(*) as total'))->get();
+        $userAbsents = ValidationAbsent::where('course_id', $course_id)->groupBy('student_id')->select('student_id', DB::raw('count(*) as total'))->get();
+        $course = Course::findOrFail($course_id);
 
         $arr = [];
 
@@ -85,27 +86,13 @@ class ValidationAbsentController extends Controller
             $objStudent->total = $absent->total;
             $objStudent->data = $student;
 
-            // $data = [
-            //     'id' => $absent->student_id,
-            //     'total' =>  $absent->total,
-            //     'data' => $student,
-            // ];
-
-            // $jsonStudent = json_encode($objStudent);
-
-            // return response()->json($data);
-
-            // $arr[] = $data;
            $arr[] = $objStudent;
-            // array_push($objStudent, $arr);
         }
-
-        // $arrJson = json_encode($arr);
 
         // return response()->json($arr);
         return view('pages.user-absent.show')->with([
-            'data' => $arr,
-            'schedule' => $schedule
+            'lists' => $arr,
+            'course' => $course
         ]);
     }
 

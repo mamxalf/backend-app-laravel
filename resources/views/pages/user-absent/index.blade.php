@@ -63,19 +63,19 @@
                         <thead>
                             <tr>
                                 <th>NO</th>
-                                <th>Schedule ID</th>
+                                <th>Course ID</th>
                                 <th>Course Title</th>
                                 <th>Student Absent</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach ($schedules as $key => $schedule)
+                            @foreach ($courses as $key => $course)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $schedule->id }}</td>
-                                    <td>{{ $schedule->courses->course_title }}</td>
-                                    <th><a href="{{ route('val-absent.show', [$schedule->id]) }}"
+                                    <td>{{ $course->id }}</td>
+                                    <td>{{ $course->course_title }}</td>
+                                    <th><a href="{{ route('val-absent.show', [$course->id]) }}"
                                         class="btn btn-primary waves-effect waves-light">List Data Student</a></th>
                                 </tr>
                             @endforeach

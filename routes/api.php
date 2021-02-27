@@ -34,3 +34,4 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 // Route::get('/cek', 'api\AppController@cek');
 Route::get('/cek/{classroom_id}', 'api\AppController@totalCourse');
+Route::get('/show-list-absent/{token}', 'api\AbsentController@showStudentAbsent');

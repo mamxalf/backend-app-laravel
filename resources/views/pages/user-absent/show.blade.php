@@ -11,7 +11,7 @@
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="page-title-box">
-                <h4><span class="font-weight-light">Data Absent : </span> {{ $schedule->courses->course_title }}</h4>
+                <h4><span class="font-weight-light">Data Absent : </span> {{ $course->course_title }}</h4>
             </div>
         </div>
 
@@ -65,12 +65,12 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($data as $key => $d)
+                            @foreach ($lists as $key => $list)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $d->id }}</td>
-                                    <td>{{ $d->data->users->name }}</td>
-                                    <td>{{ $d->total }}</td>
+                                    <td>{{ $list->data->user_id }}</td>
+                                    <td>{{ $list->data->users->name }}</td>
+                                    <td>{{ $list->total }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

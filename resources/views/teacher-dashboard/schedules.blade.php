@@ -83,8 +83,6 @@
                                                             <a href="{{ route('form-start', ['id' => $item->id]) }}"
                                                                 class="btn btn-sm btn-primary waves-effect waves-light">Start
                                                                 Absen</a>
-                                                                <a href="{{ route('absent-teacher', [$item->id]) }}"
-                                                                    class="btn btn-sm btn-danger waves-effect waves-light">List Absent Student</a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
