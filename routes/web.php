@@ -47,3 +47,7 @@ Route::get('/countdown', 'AbsentController@countdown')->name('countdown');
 Route::get('/cek-countdown', function () {
     return view('teacher-dashboard.countdown');
 });
+
+Route::get('/register/participants', 'RegisterParticipantsController@index');
+Route::post('/register/participants', 'RegisterParticipantsController@store')->name('register-participants');
+Route::get('/register/participants/success/{email}', 'RegisterParticipantsController@show');
