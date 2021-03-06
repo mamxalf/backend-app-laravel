@@ -20,9 +20,9 @@ class StudentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(function($request, $next){
+        $this->middleware(function ($request, $next) {
 
-            if(Gate::allows('isAdmin')) return $next($request);
+            if (Gate::allows('isAdmin')) return $next($request);
 
             abort(403, 'Anda tidak memiliki cukup hak akses');
         });
@@ -37,11 +37,11 @@ class StudentController extends Controller
     {
         $students = Student::with('users')->get();
 
-        // return view('pages.students.index')->with([
-        //     'students' => $students
-        // ]);
+        return view('pages.students.index')->with([
+            'students' => $students
+        ]);
 
-        return response()->json($students);
+        // return response()->json($students);
     }
 
     /**
