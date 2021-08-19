@@ -36,7 +36,9 @@ class AppController extends Controller
 
         $dataAbsent = Absent::with('schedule.courses')->where('token_generate', $valAbsent->token_absent)->first();
         // return response()->json($dataAbsent->schedule->courses->id);
-        if ($valAbsent->status == 1) {
+        $is_expired =  $valAbsent->created_at->addMinutes(90);
+        $current_time = Carbon::now();
+        if ($valAbsent->status == 1 || $current_time <= $is_expired) {
             $userAbsent = new ValidationAbsent;
             $userAbsent->student_id = $request->get('student_id');
             $userAbsent->course_id = $dataAbsent->schedule->courses->id;
